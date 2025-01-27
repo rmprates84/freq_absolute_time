@@ -2,21 +2,19 @@
 #include "pico/stdlib.h" // Biblioteca padrão para funcionalidades básicas como GPIO, temporização e E/S.
 #include "pico/time.h"   // Biblioteca para gerenciamento de tempo, como manipulação de temporizadores e atrasos.
 
-#define LED_PIN_RED 12
+#define LED_PIN_RED 12 //Definição da GPIO de saída
 bool led_on = false;
 
 int main() {
-    // Inicializa a comunicação serial, permitindo o uso de funções como printf.
-    // Isso é essencial para enviar mensagens de depuração via USB ou UART.
-    stdio_init_all();
+
+    stdio_init_all(); // Inicializa a comunicação serial
 
     // Inicializar o pino GPIO11
     gpio_init(LED_PIN_RED);
     gpio_set_dir(LED_PIN_RED,true);
 
-    // Define um intervalo de tempo em milissegundos para o temporizador.
-    // Neste caso, o intervalo é de 1000 milissegundos, ou seja, 1 segundo.
-    uint32_t interval = 1000; // Intervalo em milissegundos
+    // Define um intervalo de tempo em milissegundos
+    uint32_t interval = 1000;
 
     // Calcula o próximo tempo absoluto em que a ação deve ocorrer.
     // get_absolute_time() retorna o tempo atual do sistema.
@@ -26,8 +24,8 @@ int main() {
     // Loop infinito que mantém o programa em execução contínua.
     while (true) {
         // Verifica se o tempo atual atingiu ou ultrapassou o tempo definido em next_wake_time.
-        // Se sim, a função time_reached() retorna true.
         if (time_reached(next_wake_time)) {
+
             // Imprime uma mensagem na saída serial indicando que 1 segundo se passou.
             printf("1 segundo passou\n");
             
